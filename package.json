@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "@angular/core": "^17.0.0"
+    "@angular/core": ">=17.0.0"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
