@@ -21,52 +21,52 @@ export class Chat<
 class AngularChatState<UI_MESSAGE extends UIMessage = UIMessage>
   implements ChatState<UI_MESSAGE>
 {
-  private _messages = signal<UI_MESSAGE[]>([]);
-  private _status = signal<ChatStatus>("ready");
-  private _error = signal<Error | undefined>(undefined);
+  readonly #messages = signal<UI_MESSAGE[]>([]);
+  readonly #status = signal<ChatStatus>("ready");
+  readonly #error = signal<Error | undefined>(undefined);
 
   get messages(): UI_MESSAGE[] {
-    return this._messages();
+    return this.#messages();
   }
 
   set messages(messages: UI_MESSAGE[]) {
-    this._messages.set([...messages]);
+    this.#messages.set([...messages]);
   }
 
   get status(): ChatStatus {
-    return this._status();
+    return this.#status();
   }
 
   set status(status: ChatStatus) {
-    this._status.set(status);
+    this.#status.set(status);
   }
 
   get error(): Error | undefined {
-    return this._error();
+    return this.#error();
   }
 
   set error(error: Error | undefined) {
-    this._error.set(error);
+    this.#error.set(error);
   }
 
   constructor(initialMessages: UI_MESSAGE[] = []) {
-    this._messages.set([...initialMessages]);
+    this.#messages.set([...initialMessages]);
   }
 
   setMessages = (messages: UI_MESSAGE[]) => {
-    this._messages.set([...messages]);
+    this.#messages.set([...messages]);
   };
 
   pushMessage = (message: UI_MESSAGE) => {
-    this._messages.update((msgs) => [...msgs, message]);
+    this.#messages.update((msgs) => [...msgs, message]);
   };
 
   popMessage = () => {
-    this._messages.update((msgs) => msgs.slice(0, -1));
+    this.#messages.update((msgs) => msgs.slice(0, -1));
   };
 
   replaceMessage = (index: number, message: UI_MESSAGE) => {
-    this._messages.update((msgs) => {
+    this.#messages.update((msgs) => {
       const copy = [...msgs];
       copy[index] = message;
       return copy;
